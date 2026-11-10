@@ -35,3 +35,141 @@
       linear-gradient(90deg, var(--line) 1px, transparent 1px);
     background-size: 56px 56px;
     opacity: 0.12;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  main { position: relative; max-width: 960px; margin: 0 auto; padding: 56px 20px 40px; }
+
+  .live {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card);
+    font-size: 13px; color: var(--muted); letter-spacing: .04em;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green);
+         box-shadow: 0 0 0 0 rgba(46,229,157,.7); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(46,229,157,0); } 100% { box-shadow: 0 0 0 0 rgba(46,229,157,0); } }
+
+  h1 {
+    margin-top: 22px;
+    font-size: clamp(34px, 6vw, 62px); line-height: 1.05; font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  h1 span {
+    background: linear-gradient(90deg, var(--blue), var(--purple), var(--green));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% auto; animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  .sub { margin-top: 16px; max-width: 640px; color: var(--muted); font-size: 18px; line-height: 1.6; }
+
+  .version {
+    margin-top: 26px; display: inline-flex; align-items: center; gap: 12px;
+    padding: 12px 18px; border-radius: 14px; border: 1px solid var(--line);
+    background: var(--card); backdrop-filter: blur(8px);
+  }
+  .version b { font-size: 22px; color: var(--orange); }
+  .version small { color: var(--muted); }
+
+  .pipeline { margin-top: 48px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; position: relative; }
+  .step {
+    position: relative; padding: 18px 12px; text-align: center;
+    border-radius: 16px; border: 1px solid var(--line); background: var(--card);
+    backdrop-filter: blur(8px);
+    opacity: 0; transform: translateY(14px);
+    animation: rise .7s forwards;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .step:hover { transform: translateY(-6px); border-color: var(--blue); box-shadow: 0 12px 40px rgba(59,158,255,.2); }
+  .step:nth-child(1) { animation-delay: .1s; } .step:nth-child(2) { animation-delay: .3s; }
+  .step:nth-child(3) { animation-delay: .5s; } .step:nth-child(4) { animation-delay: .7s; }
+  .step:nth-child(5) { animation-delay: .9s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .icon { font-size: 30px; margin-bottom: 8px; }
+  .step h3 { font-size: 15px; margin-bottom: 4px; }
+  .step p { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+  .step::after {
+    content: "\2192"; position: absolute; right: -13px; top: 50%; transform: translateY(-50%);
+    color: var(--green); font-size: 16px; z-index: 2;
+  }
+  .step:last-child::after { display: none; }
+  .check { color: var(--green); font-size: 12px; margin-top: 8px; font-weight: 600; }
+
+  .terminal {
+    margin-top: 40px; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--line); background: #0a0f1d;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  }
+  .bar { display: flex; gap: 7px; padding: 12px 14px; background: rgba(255,255,255,.05); }
+  .bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .bar i:nth-child(1) { background: #ff5f57; } .bar i:nth-child(2) { background: #febc2e; } .bar i:nth-child(3) { background: #28c840; }
+  pre { padding: 18px 20px; font: 14px/1.8 "Cascadia Code", "Fira Code", Consolas, monospace; color: #c9d4f2; overflow-x: auto; }
+  .c { color: #5e6a8c; } .g { color: var(--green); } .b { color: var(--blue); } .o { color: var(--orange); }
+  .cursor { display: inline-block; width: 8px; height: 15px; background: var(--green); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .tags { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .tags span {
+    padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    border: 1px solid var(--line); background: var(--card);
+  }
+  .tags span:nth-child(4n+1) { color: var(--blue); }
+  .tags span:nth-child(4n+2) { color: var(--green); }
+  .tags span:nth-child(4n+3) { color: var(--purple); }
+  .tags span:nth-child(4n+4) { color: var(--orange); }
+
+  footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line);
+           display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--blue); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 760px) {
+    .pipeline { grid-template-columns: 1fr; }
+    .step::after { content: "\2193"; right: 50%; top: auto; bottom: -17px; transform: translateX(50%); }
+  }
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<main>
+  <div class="live"><span class="dot"></span> LIVE ON AZURE &middot; AUTO-DEPLOYED</div>
+
+  <h1>Push code.<br><span>Watch it ship itself.</span></h1>
+  <p class="sub">
+    A fully automated CI/CD pipeline: every commit to GitHub is built, tested and
+    deployed to the cloud by Jenkins, Docker and Azure, with zero manual steps.
+  </p>
+
+  <div class="version">
+    <b>Version 3</b>
+    <small>Shipped by Jenkins &middot; Pulled by Azure Web App</small>
+  </div>
+
+  <section class="pipeline">
+    <div class="step"><div class="icon">&#128221;</div><h3>GitHub</h3><p>Commit &amp; push the change</p><div class="check">&#10003; source</div></div>
+    <div class="step"><div class="icon">&#9881;&#65039;</div><h3>Jenkins</h3><p>Pipeline runs from the Jenkinsfile</p><div class="check">&#10003; build</div></div>
+    <div class="step"><div class="icon">&#128051;</div><h3>Docker</h3><p>Image built and tested with nginx -t</p><div class="check">&#10003; test</div></div>
+    <div class="step"><div class="icon">&#128230;</div><h3>Azure Registry</h3><p>Image pushed as :latest</p><div class="check">&#10003; push</div></div>
+    <div class="step"><div class="icon">&#9729;&#65039;</div><h3>Azure Web App</h3><p>Webhook pulls the new image</p><div class="check">&#10003; live</div></div>
+  </section>
+
+  <section class="terminal">
+    <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="c"># the whole deployment, in four lines</span>
+<span class="g">$</span> git add . &amp;&amp; git commit -m <span class="o">"v3"</span> &amp;&amp; git push
+<span class="b">[Jenkins]</span> Build <span class="g">&#10003;</span>  Test <span class="g">&#10003;</span>  Push <span class="g">&#10003;</span>
+<span class="b">[Azure]</span>   new image detected, pulling :latest
+<span class="g">&#10003;</span> site updated in ~1 minute <span class="cursor"></span></pre>
+  </section>
+
+  <div class="tags">
+    <span>Jenkins</span><span>Docker</span><span>Azure Container Registry</span><span>Azure App Service</span>
+    <span>GitHub</span><span>Jenkinsfile</span><span>nginx</span><span>CI/CD</span><span>DevOps</span>
+  </div>
+
+  <footer>
+    <div>Built by <strong>Yash Satav</strong> &middot; Mini Project: Jenkins + Docker + Azure</div>
+    <div><a href="https://github.com/satavyash59-lgtm/Azure-project" target="_blank" rel="noopener">View the code on GitHub &rarr;</a></div>
+  </footer>
+</main>
+</body>
+</html>
